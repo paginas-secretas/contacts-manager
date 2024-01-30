@@ -1,6 +1,6 @@
 # contacts-manager
 
-Cloudflare
+Cloudflare Worker to manage the contacts
 
 ---
 
