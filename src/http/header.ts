@@ -1,4 +1,4 @@
-import { DocumentHash } from '../data'
+import { DocumentHash } from '../data';
 
 const docHash = 'x-doc-hash';
 

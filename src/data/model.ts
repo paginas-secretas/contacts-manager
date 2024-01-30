@@ -8,5 +8,5 @@ export interface EncryptedContactsList {
 
 export interface PartialEncryptedContactsList {
 	ref: DocumentReference;
-	hash: DocumentHash
+	hash: DocumentHash;
 }

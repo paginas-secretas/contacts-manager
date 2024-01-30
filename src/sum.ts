@@ -5,5 +5,5 @@
  * @returns The result of `a` + `b`
  */
 export default function (a: number, b: number) {
-    return a + b;
+	return a + b;
 }
