@@ -3,7 +3,7 @@ import { EncryptedContactsList } from './model';
 import { requestBodyToEncryptedContactsList } from './transform';
 
 describe('requestToEncryptedContactsList', () => {
-	test('should return EncryptedContactsList with correct contacts', () => {
+	test('is able to transform to EncryptedContactsList when contacts is in base64 format', () => {
 		const contactsValue = 'U29tZVN0cmluZ09idmlvdXNseU5vdEJhc2U2NEVuY29kZWQ=';
 		const req = <Partial<EncryptedContactsList>>{
 			contacts: contactsValue
@@ -17,21 +17,23 @@ describe('requestToEncryptedContactsList', () => {
 		});
 	});
 
-	test('should throw exception when contacts is not in base 64', () => {
+	test('should throw exception when contacts is not in base64 format', () => {
 		const contactsValue = 'encryptedContactString';
 		const req = <Partial<EncryptedContactsList>>{
 			contacts: contactsValue
 		};
 
-		expect(() => requestBodyToEncryptedContactsList(req)).toThrow(
+		const resultCall = () => requestBodyToEncryptedContactsList(req);
+		expect(resultCall).toThrow(
 			'encrypted contacts list is not in base64 format'
 		);
 	});
 
-	test('should return EncryptedContactsList with empty contacts if body is empty', () => {
+	test('sshould throw exception when contacts when body is empty', () => {
 		const req = <Partial<EncryptedContactsList>>{};
 
-		expect(() => requestBodyToEncryptedContactsList(req)).toThrowError(
+		const resultCall = () => requestBodyToEncryptedContactsList(req);
+		expect(resultCall).toThrow(
 			'encrypted contacts list is not in base64 format'
 		);
 	});
