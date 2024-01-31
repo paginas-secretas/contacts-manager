@@ -3,14 +3,12 @@ import { EncryptedContactsList } from './model';
 const base64regex =
 	/^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
 
-export function requestToEncryptedContactsList(
-	req: Request
+export function requestBodyToEncryptedContactsList(
+	body: Partial<EncryptedContactsList>
 ): EncryptedContactsList {
-	const requestBody: any = req.body;
-
-	if (base64regex.test(requestBody.contacts)) {
+	if (body.contacts && base64regex.test(body.contacts)) {
 		return <EncryptedContactsList>{
-			contacts: requestBody.contacts
+			contacts: body.contacts
 		};
 	}
 
