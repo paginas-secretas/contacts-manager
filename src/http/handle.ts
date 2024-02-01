@@ -2,6 +2,7 @@ import { extractDocRef } from './param';
 import { extractDocHash } from './header';
 import { GitHubContactsRepository, GitHubRepoConfig } from '../data';
 import { Config } from '../config';
+import { NotFoundError } from './response';
 
 export async function handleFetchEncryptedContactsList(
 	request: Request,
@@ -11,7 +12,7 @@ export async function handleFetchEncryptedContactsList(
 	const hash = extractDocHash(request.headers);
 
 	if (!ref || !hash) {
-		return new Response(undefined, { status: 404 });
+		return new NotFoundError();
 	}
 
 	try {
@@ -25,6 +26,6 @@ export async function handleFetchEncryptedContactsList(
 	} catch (error) {
 		console.error(error);
 
-		return new Response(undefined, { status: 404 });
+		return new NotFoundError();
 	}
 }

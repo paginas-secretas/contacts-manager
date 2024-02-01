@@ -1,5 +1,9 @@
 import { Env, fromEnv } from './config';
-import { handleFetchEncryptedContactsList, handleRequestRouting } from './http';
+import {
+	NotFoundError,
+	handleFetchEncryptedContactsList,
+	handleRequestRouting
+} from './http';
 
 export default {
 	async fetch(
@@ -11,7 +15,7 @@ export default {
 
 		return handleRequestRouting(request, {
 			contacts: () => handleFetchEncryptedContactsList(request, config),
-			default: () => new Response(undefined, { status: 404 })
+			default: () => new NotFoundError()
 		});
 	}
 };
