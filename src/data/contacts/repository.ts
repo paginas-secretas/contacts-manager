@@ -1,7 +1,12 @@
+import upsert, {
+	GitHubRepository,
+	File
+} from '@web-pacotes/github-upsert';
 import {
 	DocumentHash,
 	DocumentReference,
-	EncryptedContactsList
+	EncryptedContactsList,
+	PartialEncryptedContactsList
 } from '../model';
 import { requestBodyToEncryptedContactsList } from '../transform';
 import { GitHubRepoConfig } from './model';
@@ -37,5 +42,34 @@ export class GitHubContactsRepository implements ContactsRepository {
 		const bodyJson = await response.json();
 
 		return requestBodyToEncryptedContactsList(Object.assign({}, bodyJson));
+	}
+
+	async upsert(
+		encryptedContactsList: EncryptedContactsList
+	): Promise<PartialEncryptedContactsList> {
+		const repo = <GitHubRepository>{
+			name: this.config.repo,
+			owner: this.config.owner,
+			pat: this.config.token
+		};
+
+		const data = new TextEncoder().encode(
+			JSON.stringify(encryptedContactsList)
+		);
+		const file = <File>{ data: data };
+
+		const ref = crypto.randomUUID();
+		const path = `${ref}.ecsj`;
+
+		const result = await upsert(repo, file, path);
+
+		if (result && 'sha' in result) {
+			return <PartialEncryptedContactsList>{
+				hash: result?.sha,
+				ref: path
+			};
+		}
+
+		throw 'failed to upsert encrypted contacts list';
 	}
 }
