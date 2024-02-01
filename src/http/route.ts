@@ -20,8 +20,10 @@ export function handleRequestRouting(request: Request, routing: RoutingTable) {
 	}
 }
 
-export function buildRouteRegex(
-	collections: string[]
-): RegExp {
-	return new RegExp(`^/${collections.map((x, idx) => `(${x})${idx > 0 ? '?' : ''}/?([^/\n]*)?/?`).join('')}$`);
+export function buildRouteRegex(collections: string[]): RegExp {
+	return new RegExp(
+		`^/${collections
+			.map((x, idx) => `(${x})${idx > 0 ? '?' : ''}/?([^/\n]*)?/?`)
+			.join('')}$`
+	);
 }

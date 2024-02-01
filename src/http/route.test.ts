@@ -22,7 +22,9 @@ describe('route', () => {
 		test('collections with element "foo" and "bar" should build a regex that matches ^/(foo)/?([^/\n]*)?/?(bar)?/?([^/\n]*)?/?$', () => {
 			const collections = ['foo', 'bar'];
 			const regex = buildRouteRegex(collections);
-			const expectedRegex = new RegExp(`^/(foo)/?([^/\n]*)?/?(bar)?/?([^/\n]*)?/?$`);
+			const expectedRegex = new RegExp(
+				`^/(foo)/?([^/\n]*)?/?(bar)?/?([^/\n]*)?/?$`
+			);
 
 			expect(regex).toEqual(expectedRegex);
 		});
