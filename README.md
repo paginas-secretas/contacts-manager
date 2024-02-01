@@ -18,9 +18,12 @@ This repository is configured with client-side Git hooks that automatically form
 
 To properly run this service, you will need to a set up a `.dev.vars` file. Start by creating a copy of the `.dev.vars.tpl` file and fill the variables with values appropriate for the execution context.
 
-|  Variable Name   | Variable Description |
-| :--------------: | :------------------- |
-| `AWESOME_SECRET` | Awesome Secret.      |
+|             Variable Name              | Variable Description                                                                |
+| :------------------------------------: | :---------------------------------------------------------------------------------- |
+| `CONTACTS_DB_GITHUB_REPOSITORY_OWNER`  | The owner/username of the repository that represents the contacts manager database. |
+|  `CONTACTS_DB_GITHUB_REPOSITORY_REPO`  | The identifier of the repository that represents the contacts manager database.     |
+| `CONTACTS_DB_GITHUB_REPOSITORY_BRANCH` | The branch where the repository allows insert/update transactions.                  |
+| `CONTACTS_DB_GITHUB_REPOSITORY_TOKEN`  | The personal access token (PAT) with read/write permission for the repository.      |
 
 Run the local server via `npm run start`
 
