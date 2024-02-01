@@ -2,6 +2,7 @@ import { Env, fromEnv } from './config';
 import {
 	NotFoundError,
 	handleFetchEncryptedContactsListRequest,
+	handlePostEncryptedContactsListRequest,
 	handleRequestRouting
 } from './http';
 
@@ -15,6 +16,8 @@ export default {
 
 		return handleRequestRouting(request, {
 			contacts: () => handleFetchEncryptedContactsListRequest(request, config),
+			addContacts: () =>
+				handlePostEncryptedContactsListRequest(request, config),
 			default: () => new NotFoundError()
 		});
 	}
