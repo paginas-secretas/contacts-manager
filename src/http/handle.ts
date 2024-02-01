@@ -4,7 +4,7 @@ import { GitHubContactsRepository, GitHubRepoConfig } from '../data';
 import { Config } from '../config';
 import { NotFoundError } from './response';
 
-export async function handleFetchEncryptedContactsList(
+export async function handleFetchEncryptedContactsListRequest(
 	request: Request,
 	config: Config
 ): Promise<Response> {
