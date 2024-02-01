@@ -1,7 +1,4 @@
-import upsert, {
-	GitHubRepository,
-	File
-} from '@web-pacotes/github-upsert';
+import upsert, { GitHubRepository, File } from '@web-pacotes/github-upsert';
 import {
 	DocumentHash,
 	DocumentReference,
