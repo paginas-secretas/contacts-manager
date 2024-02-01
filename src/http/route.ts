@@ -5,7 +5,7 @@ const routeRegex = buildRouteRegex(['contacts']);
 /**
  * Types supported routes.
  */
-interface RoutingTable {
+export interface RoutingTable {
 	contacts: () => Promise<Response>;
 	default: () => Response;
 }
