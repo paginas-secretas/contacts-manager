@@ -1,4 +1,6 @@
 import { Env, fromEnv } from './config';
+import { GitHubContactsRepository, GitHubRepoConfig } from './data';
+import { handleRequestRouting } from './http/route';
 
 export default {
 	async fetch(
@@ -8,6 +10,12 @@ export default {
 	): Promise<Response> {
 		const config = fromEnv(env);
 
-		return new Response(`Hello ${config.awesomeSecret}!`);
+		return handleRequestRouting(
+			request,
+			{
+				contacts: () => new Response(undefined),
+				default: () => new Response(undefined, { status: 404 }),
+			}
+		);
 	}
 };
