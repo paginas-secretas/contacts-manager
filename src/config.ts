@@ -22,7 +22,7 @@ export function fromEnv(env: Env): Config {
 			branch: env.CONTACTS_DB_GITHUB_REPOSITORY_BRANCH,
 			owner: env.CONTACTS_DB_GITHUB_REPOSITORY_OWNER,
 			repo: env.CONTACTS_DB_GITHUB_REPOSITORY_REPO,
-			token: env.CONTACTS_DB_GITHUB_REPOSITORY_TOKEN,
+			token: env.CONTACTS_DB_GITHUB_REPOSITORY_TOKEN
 		}
 	};
 }

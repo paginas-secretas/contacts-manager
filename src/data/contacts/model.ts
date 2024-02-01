@@ -1,6 +1,6 @@
 export interface GitHubRepoConfig {
-    owner: string;
-    repo: string;
-    branch: string;
-    token: string;
-};
+	owner: string;
+	repo: string;
+	branch: string;
+	token: string;
+}

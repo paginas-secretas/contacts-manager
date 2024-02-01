@@ -1,1 +1,3 @@
-export const rawGitHubServerBaseUrl = new URL('https://raw.githubusercontent.com');
+export const rawGitHubServerBaseUrl = new URL(
+	'https://raw.githubusercontent.com'
+);

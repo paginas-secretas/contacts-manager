@@ -10,12 +10,9 @@ export default {
 	): Promise<Response> {
 		const config = fromEnv(env);
 
-		return handleRequestRouting(
-			request,
-			{
-				contacts: () => new Response(undefined),
-				default: () => new Response(undefined, { status: 404 }),
-			}
-		);
+		return handleRequestRouting(request, {
+			contacts: () => new Response(undefined),
+			default: () => new Response(undefined, { status: 404 })
+		});
 	}
 };
