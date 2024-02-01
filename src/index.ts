@@ -1,5 +1,5 @@
 import { Env, fromEnv } from './config';
-import { handleRequestRouting } from './http/route';
+import { handleFetchEncryptedContactsList, handleRequestRouting } from './http';
 
 export default {
 	async fetch(
@@ -10,7 +10,7 @@ export default {
 		const config = fromEnv(env);
 
 		return handleRequestRouting(request, {
-			contacts: () => new Response('entrei no contacts'),
+			contacts: () => handleFetchEncryptedContactsList(request, config),
 			default: () => new Response(undefined, { status: 404 })
 		});
 	}
