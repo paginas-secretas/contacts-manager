@@ -26,6 +26,6 @@
 		"test": "jest"
 	},
 	"dependencies": {
-		"@web-pacotes/github-upsert": "^0.0.6"
+		"@web-pacotes/github-upsert": "^0.0.7"
 	}
 }
