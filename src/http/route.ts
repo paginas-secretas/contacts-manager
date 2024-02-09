@@ -37,11 +37,7 @@ export function handleRequestRouting(request: Request, routing: RoutingTable) {
 	}
 }
 
-/**
- * 
- * curl -X POST http://localhost:8787/contacts \
-   -H "Content-Type: application/json" \
-   -d '{"contacts": "U29tZVN0cmluZ09idmlvdXNseU5vdEJhc2U2NEVuY29kZWQ="}'  
+/** 
  * Builds a regular expression that is able to match REST routes (based on collections) through group values.
  *
  * Example: to match collection "foo" and resources associated to it, the function will return the following expression:
