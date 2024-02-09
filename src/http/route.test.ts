@@ -112,7 +112,10 @@ describe('route', () => {
 		});
 
 		test('a GET request with /contacts/:ref/ endpoint should match the contacts route', () => {
-			const request = new Request('https://paginassecretas.fun/contacts/:ref/', { method: 'GET' });
+			const request = new Request(
+				'https://paginassecretas.fun/contacts/:ref/',
+				{ method: 'GET' }
+			);
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
@@ -128,7 +131,10 @@ describe('route', () => {
 		});
 
 		test('a POST request with /contacts/:ref/ endpoint should match the add contacts route', () => {
-			const request = new Request('https://paginassecretas.fun/contacts/:ref/', { method: 'POST' });
+			const request = new Request(
+				'https://paginassecretas.fun/contacts/:ref/',
+				{ method: 'POST' }
+			);
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
@@ -144,7 +150,10 @@ describe('route', () => {
 		});
 
 		test('a PUT request with /contacts/:ref/ endpoint should match the default route', () => {
-			const request = new Request('https://paginassecretas.fun/contacts/:ref/', { method: 'PUT' });
+			const request = new Request(
+				'https://paginassecretas.fun/contacts/:ref/',
+				{ method: 'PUT' }
+			);
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
