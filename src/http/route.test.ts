@@ -35,9 +35,11 @@ describe('route', () => {
 			const request = new Request('https://paginassecretas.fun');
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
+			const addContactsCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
-				contacts: contactsCallback
+				contacts: contactsCallback,
+				addContacts: addContactsCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -49,9 +51,11 @@ describe('route', () => {
 			const request = new Request('https://paginassecretas.fun/anything');
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
+			const addContactsCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
-				contacts: contactsCallback
+				contacts: contactsCallback,
+				addContacts: addContactsCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -63,9 +67,11 @@ describe('route', () => {
 			const request = new Request('https://paginassecretas.fun/contacts');
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
+			const addContactsCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
-				contacts: contactsCallback
+				contacts: contactsCallback,
+				addContacts: addContactsCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -77,9 +83,11 @@ describe('route', () => {
 			const request = new Request('https://paginassecretas.fun/contacts/');
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
+			const addContactsCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
-				contacts: contactsCallback
+				contacts: contactsCallback,
+				addContacts: addContactsCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -91,9 +99,11 @@ describe('route', () => {
 			const request = new Request('https://paginassecretas.fun/contacts/:ref');
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
+			const addContactsCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
-				contacts: contactsCallback
+				contacts: contactsCallback,
+				addContacts: addContactsCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -101,18 +111,52 @@ describe('route', () => {
 			expect(contactsCallback).toBeCalled();
 		});
 
-		test('a request with /contacts/:ref/ endpoint should match the contacts route', () => {
-			const request = new Request('https://paginassecretas.fun/contacts/:ref/');
+		test('a GET request with /contacts/:ref/ endpoint should match the contacts route', () => {
+			const request = new Request('https://paginassecretas.fun/contacts/:ref/', { method: 'GET' });
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
+			const addContactsCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
-				contacts: contactsCallback
+				contacts: contactsCallback,
+				addContacts: addContactsCallback
 			};
 
 			handleRequestRouting(request, routingTable);
 
 			expect(contactsCallback).toBeCalled();
+		});
+
+		test('a POST request with /contacts/:ref/ endpoint should match the add contacts route', () => {
+			const request = new Request('https://paginassecretas.fun/contacts/:ref/', { method: 'POST' });
+			const defaultCallback = jest.fn<() => Response>();
+			const contactsCallback = jest.fn<() => Promise<Response>>();
+			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const routingTable = <RoutingTable>{
+				default: defaultCallback,
+				contacts: contactsCallback,
+				addContacts: addContactsCallback
+			};
+
+			handleRequestRouting(request, routingTable);
+
+			expect(addContactsCallback).toBeCalled();
+		});
+
+		test('a PUT request with /contacts/:ref/ endpoint should match the default route', () => {
+			const request = new Request('https://paginassecretas.fun/contacts/:ref/', { method: 'PUT' });
+			const defaultCallback = jest.fn<() => Response>();
+			const contactsCallback = jest.fn<() => Promise<Response>>();
+			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const routingTable = <RoutingTable>{
+				default: defaultCallback,
+				contacts: contactsCallback,
+				addContacts: addContactsCallback
+			};
+
+			handleRequestRouting(request, routingTable);
+
+			expect(defaultCallback).toBeCalled();
 		});
 
 		test('a request with /contacts/:ref/anything endpoint should match the default route', () => {
@@ -121,9 +165,11 @@ describe('route', () => {
 			);
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
+			const addContactsCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
-				contacts: contactsCallback
+				contacts: contactsCallback,
+				addContacts: addContactsCallback
 			};
 
 			handleRequestRouting(request, routingTable);
