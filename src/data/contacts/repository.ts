@@ -1,4 +1,8 @@
-import upsert, { GitHubRepository, File } from '@web-pacotes/github-upsert';
+import upsert, {
+	GitHubRepository,
+	File,
+	isGitHubFile
+} from '@web-pacotes/github-upsert';
 import {
 	DocumentHash,
 	DocumentReference,
@@ -60,9 +64,9 @@ export class GitHubContactsRepository implements ContactsRepository {
 
 		const result = await upsert(repo, file, path);
 
-		if (result && 'sha' in result) {
+		if (result && isGitHubFile(result)) {
 			return <PartialEncryptedContactsList>{
-				hash: result?.sha,
+				hash: result.blob,
 				ref: path
 			};
 		}
