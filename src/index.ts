@@ -1,4 +1,5 @@
 import { Env, fromEnv } from './config';
+import { GitHubContactsRepository, GitHubRepoConfig } from './data';
 import {
 	NotFoundError,
 	handleFetchEncryptedContactsListRequest,
@@ -14,10 +15,15 @@ export default {
 	): Promise<Response> {
 		const config = fromEnv(env);
 
+		const repository = new GitHubContactsRepository(
+			config.contactsManagerDB satisfies GitHubRepoConfig
+		);
+
 		return handleRequestRouting(request, {
-			contacts: () => handleFetchEncryptedContactsListRequest(request, config),
+			contacts: () =>
+				handleFetchEncryptedContactsListRequest(request, repository),
 			addContacts: () =>
-				handlePostEncryptedContactsListRequest(request, config),
+				handlePostEncryptedContactsListRequest(request, repository),
 			default: () => new NotFoundError()
 		});
 	}
