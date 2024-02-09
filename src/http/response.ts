@@ -1,8 +1,5 @@
 export abstract class ErrorResponse extends Response {
-	constructor(
-		protected readonly message: string | undefined,
-		readonly status: number
-	) {
+	constructor(protected readonly message: string | undefined, status: number) {
 		super(message ? JSON.stringify({ message: message }) : undefined, {
 			status: status
 		});
@@ -11,6 +8,6 @@ export abstract class ErrorResponse extends Response {
 
 export class NotFoundError extends ErrorResponse {
 	constructor() {
-		super(undefined, 500);
+		super(undefined, 404);
 	}
 }
