@@ -1,6 +1,7 @@
 import { Env, fromEnv } from './config';
 import { GitHubContactsRepository, GitHubRepoConfig } from './data';
 import {
+	CORSResponse,
 	NotFoundError,
 	handleFetchEncryptedContactsListRequest,
 	handlePostEncryptedContactsListRequest,
@@ -19,12 +20,14 @@ export default {
 			config.contactsManagerDB satisfies GitHubRepoConfig
 		);
 
-		return handleRequestRouting(request, {
+		const response = await handleRequestRouting(request, {
 			contacts: () =>
 				handleFetchEncryptedContactsListRequest(request, repository),
 			addContacts: () =>
 				handlePostEncryptedContactsListRequest(request, repository),
 			default: () => new NotFoundError()
 		});
+
+		return new CORSResponse(response);
 	}
 };

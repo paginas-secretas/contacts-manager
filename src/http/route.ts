@@ -1,3 +1,5 @@
+import { handleOptions } from './handle';
+
 export const contactsRoute = '/contacts/';
 
 const routeRegex = buildRouteRegex(['contacts']);
@@ -23,6 +25,10 @@ export function handleRequestRouting(request: Request, routing: RoutingTable) {
 	const endpoint = new URL(request.url).pathname;
 	const matches = endpoint.match(routeRegex)?.filter((x) => x != undefined);
 
+	if (request.method === 'OPTIONS') {
+		return handleOptions(request);
+	}
+
 	if (!matches) {
 		return routing.default();
 	} else if (matches.length <= 3) {
@@ -37,7 +43,7 @@ export function handleRequestRouting(request: Request, routing: RoutingTable) {
 	}
 }
 
-/** 
+/**
  * Builds a regular expression that is able to match REST routes (based on collections) through group values.
  *
  * Example: to match collection "foo" and resources associated to it, the function will return the following expression:
