@@ -1,6 +1,7 @@
 import { describe, expect, test, jest, beforeEach } from '@jest/globals';
 import {
 	handleFetchEncryptedContactsListRequest,
+	handleOptions,
 	handlePostEncryptedContactsListRequest
 } from './handle';
 import {
@@ -153,5 +154,58 @@ describe('handlePostEncryptedContactsListRequest', () => {
 		expect(mockUpsert).toHaveBeenCalledWith(mockRequestBody);
 		expect(response).toBeDefined();
 		expect(response.status).toEqual(404);
+	});
+});
+
+describe('handleOptions', () => {
+	test('should return response without cors headers when headers is empty', async () => {
+		const mockRequest = new Request(
+			'https://paginassecretas.fun/contacts/:ref/',
+			{ method: 'POST', body: null }
+		);
+
+		const response = await handleOptions(mockRequest);
+
+		expect(response).toBeDefined();
+		expect(response.headers).toBeDefined();
+		expect(response.body).toBeNull();
+		expect(response.headers.keys()).toContain('allow');
+		expect(response.headers.get('Allow')).toEqual('GET, HEAD, POST, OPTIONS');
+	});
+
+	test('should return response with cors headers when headers access control info', async () => {
+		const accessControlRequestHeaders = 'Access-Control-Request-Headers';
+		const mockRequest = new Request(
+			'https://paginassecretas.fun/contacts/:ref/',
+			{
+				method: 'POST',
+				body: null,
+				headers: {
+					Origin: 'https://paginassecretas.fun/contacts/',
+					'Access-Control-Request-Method': 'Access-Control-Request-Method',
+					'Access-Control-Request-Headers': accessControlRequestHeaders
+				}
+			}
+		);
+
+		const response = await handleOptions(mockRequest);
+
+		expect(response).toBeDefined();
+		expect(response.headers).toBeDefined();
+		expect(response.body).toBeNull();
+		expect(response.headers.keys()).toContain('access-control-allow-headers');
+		expect(response.headers.keys()).toContain('access-control-allow-origin');
+		expect(response.headers.keys()).toContain('access-control-allow-methods');
+		expect(response.headers.keys()).toContain('access-control-max-age');
+		expect(response.headers.get('Access-Control-Allow-Headers')).toEqual(
+			accessControlRequestHeaders
+		);
+		expect(response.headers.get('Access-Control-Allow-Origin')).toEqual('*');
+		expect(response.headers.get('Access-Control-Allow-Methods')).toEqual(
+			'GET,HEAD,POST,OPTIONS'
+		);
+		expect(response.headers.get('Access-Control-Max-Age')).toEqual(
+			'86400'
+		);
 	});
 });
