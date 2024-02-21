@@ -1,5 +1,3 @@
-import { handleOptions } from './handle';
-
 export const contactsRoute = '/contacts/';
 
 const routeRegex = buildRouteRegex(['contacts']);
@@ -10,6 +8,7 @@ const routeRegex = buildRouteRegex(['contacts']);
 export interface RoutingTable {
 	contacts: () => Promise<Response>;
 	addContacts: () => Promise<Response>;
+	preflight: () => Promise<Response>;
 	default: () => Response;
 }
 
@@ -26,7 +25,7 @@ export function handleRequestRouting(request: Request, routing: RoutingTable) {
 	const matches = endpoint.match(routeRegex)?.filter((x) => x != undefined);
 
 	if (request.method === 'OPTIONS') {
-		return handleOptions(request);
+		return routing.preflight();
 	}
 
 	if (!matches) {

@@ -158,7 +158,7 @@ describe('handlePostEncryptedContactsListRequest', () => {
 });
 
 describe('handleOptions', () => {
-	test('should return response without cors headers when headers is empty', async () => {
+	test('should handle standard OPTIONS request and return response without CORS headers', async () => {
 		const mockRequest = new Request(
 			'https://paginassecretas.fun/contacts/:ref/',
 			{ method: 'POST', body: null }
@@ -173,7 +173,7 @@ describe('handleOptions', () => {
 		expect(response.headers.get('Allow')).toEqual('GET, HEAD, POST, OPTIONS');
 	});
 
-	test('should return response with cors headers when headers access control info', async () => {
+	test('should handle CORS preflight request and return response with CORS headers', async () => {
 		const accessControlRequestHeaders = 'Access-Control-Request-Headers';
 		const mockRequest = new Request(
 			'https://paginassecretas.fun/contacts/:ref/',
@@ -204,8 +204,6 @@ describe('handleOptions', () => {
 		expect(response.headers.get('Access-Control-Allow-Methods')).toEqual(
 			'GET,HEAD,POST,OPTIONS'
 		);
-		expect(response.headers.get('Access-Control-Max-Age')).toEqual(
-			'86400'
-		);
+		expect(response.headers.get('Access-Control-Max-Age')).toEqual('86400');
 	});
 });

@@ -4,6 +4,7 @@ import {
 	CORSResponse,
 	NotFoundError,
 	handleFetchEncryptedContactsListRequest,
+	handleOptions,
 	handlePostEncryptedContactsListRequest,
 	handleRequestRouting
 } from './http';
@@ -25,6 +26,7 @@ export default {
 				handleFetchEncryptedContactsListRequest(request, repository),
 			addContacts: () =>
 				handlePostEncryptedContactsListRequest(request, repository),
+			preflight: () => handleOptions(request),
 			default: () => new NotFoundError()
 		});
 

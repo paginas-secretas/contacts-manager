@@ -49,14 +49,13 @@ export async function handlePostEncryptedContactsListRequest(
 	}
 }
 
-export async function handleOptions(request: Request) {
+export async function handleOptions(request: Request): Promise<Response> {
 	const requestHeader = request.headers.get('Access-Control-Request-Headers');
 	if (
 		request.headers.get('Origin') !== null &&
 		request.headers.get('Access-Control-Request-Method') !== null &&
 		requestHeader !== null
 	) {
-		// Handle CORS preflight requests.
 		return new Response(null, {
 			headers: {
 				...corsHeaders,
@@ -64,7 +63,6 @@ export async function handleOptions(request: Request) {
 			}
 		});
 	} else {
-		// Handle standard OPTIONS request.
 		return new Response(null, {
 			headers: {
 				Allow: 'GET, HEAD, POST, OPTIONS'
