@@ -11,3 +11,11 @@ export class NotFoundError extends ErrorResponse {
 		super(undefined, 404);
 	}
 }
+
+export class CORSResponse extends Response {
+	constructor(protected readonly response: Response) {
+		super(response.body, response);
+		this.headers.set('Access-Control-Allow-Origin', '*');
+		this.headers.append('Vary', 'Origin');
+	}
+}

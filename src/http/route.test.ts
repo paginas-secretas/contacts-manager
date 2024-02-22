@@ -36,10 +36,12 @@ describe('route', () => {
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const preflightCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
 				contacts: contactsCallback,
-				addContacts: addContactsCallback
+				addContacts: addContactsCallback,
+				preflight: preflightCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -52,10 +54,12 @@ describe('route', () => {
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const preflightCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
 				contacts: contactsCallback,
-				addContacts: addContactsCallback
+				addContacts: addContactsCallback,
+				preflight: preflightCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -68,10 +72,12 @@ describe('route', () => {
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const preflightCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
 				contacts: contactsCallback,
-				addContacts: addContactsCallback
+				addContacts: addContactsCallback,
+				preflight: preflightCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -84,10 +90,12 @@ describe('route', () => {
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const preflightCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
 				contacts: contactsCallback,
-				addContacts: addContactsCallback
+				addContacts: addContactsCallback,
+				preflight: preflightCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -100,10 +108,12 @@ describe('route', () => {
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const preflightCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
 				contacts: contactsCallback,
-				addContacts: addContactsCallback
+				addContacts: addContactsCallback,
+				preflight: preflightCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -119,10 +129,12 @@ describe('route', () => {
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const preflightCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
 				contacts: contactsCallback,
-				addContacts: addContactsCallback
+				addContacts: addContactsCallback,
+				preflight: preflightCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -138,10 +150,12 @@ describe('route', () => {
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const preflightCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
 				contacts: contactsCallback,
-				addContacts: addContactsCallback
+				addContacts: addContactsCallback,
+				preflight: preflightCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -157,10 +171,12 @@ describe('route', () => {
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const preflightCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
 				contacts: contactsCallback,
-				addContacts: addContactsCallback
+				addContacts: addContactsCallback,
+				preflight: preflightCallback
 			};
 
 			handleRequestRouting(request, routingTable);
@@ -175,15 +191,38 @@ describe('route', () => {
 			const defaultCallback = jest.fn<() => Response>();
 			const contactsCallback = jest.fn<() => Promise<Response>>();
 			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const preflightCallback = jest.fn<() => Promise<Response>>();
 			const routingTable = <RoutingTable>{
 				default: defaultCallback,
 				contacts: contactsCallback,
-				addContacts: addContactsCallback
+				addContacts: addContactsCallback,
+				preflight: preflightCallback
 			};
 
 			handleRequestRouting(request, routingTable);
 
 			expect(defaultCallback).toBeCalled();
+		});
+
+		test('a OPTIONS request with /contacts/:ref/ endpoint should match the preflight route', () => {
+			const request = new Request(
+				'https://paginassecretas.fun/contacts/:ref/',
+				{ method: 'OPTIONS' }
+			);
+			const defaultCallback = jest.fn<() => Response>();
+			const contactsCallback = jest.fn<() => Promise<Response>>();
+			const addContactsCallback = jest.fn<() => Promise<Response>>();
+			const preflightCallback = jest.fn<() => Promise<Response>>();
+			const routingTable = <RoutingTable>{
+				default: defaultCallback,
+				contacts: contactsCallback,
+				addContacts: addContactsCallback,
+				preflight: preflightCallback
+			};
+
+			handleRequestRouting(request, routingTable);
+
+			expect(preflightCallback).toBeCalled();
 		});
 	});
 });

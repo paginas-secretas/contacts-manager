@@ -5,6 +5,7 @@ import {
 	requestBodyToEncryptedContactsList
 } from '../data';
 import { NotFoundError } from './response';
+import { corsHeaders } from './cors';
 
 export async function handleFetchEncryptedContactsListRequest(
 	request: Request,
@@ -45,5 +46,27 @@ export async function handlePostEncryptedContactsListRequest(
 		console.error(error);
 
 		return new NotFoundError();
+	}
+}
+
+export async function handleOptions(request: Request): Promise<Response> {
+	const requestHeader = request.headers.get('Access-Control-Request-Headers');
+	if (
+		request.headers.get('Origin') !== null &&
+		request.headers.get('Access-Control-Request-Method') !== null &&
+		requestHeader !== null
+	) {
+		return new Response(null, {
+			headers: {
+				...corsHeaders,
+				'Access-Control-Allow-Headers': requestHeader
+			}
+		});
+	} else {
+		return new Response(null, {
+			headers: {
+				Allow: 'GET, HEAD, POST, OPTIONS'
+			}
+		});
 	}
 }

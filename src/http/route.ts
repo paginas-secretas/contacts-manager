@@ -8,6 +8,7 @@ const routeRegex = buildRouteRegex(['contacts']);
 export interface RoutingTable {
 	contacts: () => Promise<Response>;
 	addContacts: () => Promise<Response>;
+	preflight: () => Promise<Response>;
 	default: () => Response;
 }
 
@@ -23,6 +24,10 @@ export function handleRequestRouting(request: Request, routing: RoutingTable) {
 	const endpoint = new URL(request.url).pathname;
 	const matches = endpoint.match(routeRegex)?.filter((x) => x != undefined);
 
+	if (request.method === 'OPTIONS') {
+		return routing.preflight();
+	}
+
 	if (!matches) {
 		return routing.default();
 	} else if (matches.length <= 3) {
@@ -37,7 +42,7 @@ export function handleRequestRouting(request: Request, routing: RoutingTable) {
 	}
 }
 
-/** 
+/**
  * Builds a regular expression that is able to match REST routes (based on collections) through group values.
  *
  * Example: to match collection "foo" and resources associated to it, the function will return the following expression:
